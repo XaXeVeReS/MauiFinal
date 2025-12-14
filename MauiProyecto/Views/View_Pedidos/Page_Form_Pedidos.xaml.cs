@@ -16,7 +16,7 @@ public partial class Page_Form_Pedidos : ContentPage
         Cargar_Platos();
         lista_Detalle = new List<Cls_DetalleVenta>();
     }
-    
+
     private async void Cargar_Platos()
     {
         List<Cls_Platos> listaPlatos = (await Client.Get_PlatosAsync()).ToList();
@@ -54,7 +54,7 @@ public partial class Page_Form_Pedidos : ContentPage
         Cls_Platos? plato = picker_Platos.SelectedItem as Cls_Platos;
         Cls_Promociones? promocion = picker_Descuentos.SelectedItem as Cls_Promociones;
 
-        if(plato == null)
+        if (plato == null)
         {
             mostrar_mensage("Se debe seleccionar un plato");
         }
@@ -62,7 +62,7 @@ public partial class Page_Form_Pedidos : ContentPage
         {
             int cantidad = 0;
             if (!int.TryParse(Cantidad.Text, out cantidad) || cantidad <= 0)
-            {               
+            {
                 mostrar_mensage("La cantidad requerida debe ser de al menos 1");
             }
             else
@@ -77,35 +77,62 @@ public partial class Page_Form_Pedidos : ContentPage
                     venta.Descuento = promocion.Descuento;
                 }
                 else { venta.Descuento = 0; }
+
                 Cargar_Detalle(venta);
             }
-        }     
+        }
     }
     private void mostrar_mensage(string mensage)
     {
         lblError.Text = mensage;
-        lblError.IsVisible = true;
+        lblError.Opacity = 1;
     }
-    private void Cargar_Detalle(Cls_DetalleVenta venta)
+    private async void Cargar_Detalle(Cls_DetalleVenta venta)
     {
         var detalle = lista_Detalle.FirstOrDefault(x => x.Id_Plato == venta.Id_Plato);
-
+        List<Cls_Promociones> promo = (await Client.Get_PromocionesAsync(false)).ToList();
+        var listaPromo = promo.Where(p => p.Id_Plato == venta.Id_Plato).ToList();
         if (detalle != null)
         {
-            detalle.Cantidad = venta.Cantidad > detalle.Cantidad? venta.Cantidad: detalle.Cantidad +1;
-            detalle.Id_Promocion = venta.Id_Promocion;
-            detalle.Descuento =  venta.Descuento;
+            detalle.Cantidad = venta.Cantidad;
+
+            foreach (Cls_Promociones p in listaPromo.ToArray())
+            {
+                if (detalle.Cantidad >= p.Cantidad_Aplicable)
+                {
+                    detalle.Id_Promocion = p.Id_Promocion;
+                    detalle.Descuento = p.Descuento;
+                }
+                else
+                {
+                    detalle.Id_Promocion = null;
+                    detalle.Descuento = 0;
+                }
+            }
         }
         else
         {
+            foreach (Cls_Promociones p in listaPromo.ToArray())
+            {
+                if (venta.Cantidad >= p.Cantidad_Aplicable)
+                {
+                    venta.Id_Promocion = p.Id_Promocion;
+                    venta.Descuento = p.Descuento;
+                }
+                else
+                {
+                    venta.Id_Promocion = null;
+                    venta.Descuento = 0;
+                }
+            }
             lista_Detalle.Add(venta);
-        }           
+        }
 
         TablaDetalle.ItemsSource = null;
         TablaDetalle.ItemsSource = lista_Detalle;
         Calcular_Precio_Total();
 
-        lblError.IsVisible = false;
+        lblError.Opacity = 0;
         lblError.Text = "";
     }
     private async void Click_btn_Quitar(object sender, EventArgs e)
@@ -119,19 +146,19 @@ public partial class Page_Form_Pedidos : ContentPage
         TablaDetalle.ItemsSource = lista_Detalle;
         Calcular_Precio_Total();
     }
-    private async void Click_btn_Realizar_Pago (object sender, EventArgs e)
+    private async void Click_btn_Realizar_Pago(object sender, EventArgs e)
     {
-        // Validar que hay monto
-        if (!float.TryParse(Monto.Text, out float montoTotal) || montoTotal <= 0)
-        {
-            mostrar_mensage("El monto total debe ser mayor a cero");
-            return;
-        }
-
         // Validar que hay detalles
         if (lista_Detalle == null || lista_Detalle.Count == 0)
         {
             mostrar_mensage("El Detalle de venta debe contener al menos un registro");
+            return;
+        }
+
+        // Validar que hay monto
+        if (!float.TryParse(Monto.Text, out float montoTotal) || montoTotal <= 0)
+        {
+            mostrar_mensage("El monto total debe ser mayor a cero");
             return;
         }
 
@@ -171,7 +198,6 @@ public partial class Page_Form_Pedidos : ContentPage
             mostrar_mensage($"Error al procesar pago: {ex.Message}");
         }
     }
-
     private async Task Insertar_Pedido()
     {
         if (lista_Detalle != null && lista_Detalle.Count > 0)
@@ -203,15 +229,14 @@ public partial class Page_Form_Pedidos : ContentPage
                     "OK"
                 );
             }
-        } 
+        }
     }
-
     private async Task Calcular_Precio_Total()
     {
         float MontoTotal = 0;
         int tiempo_p = 0;
-        foreach(Cls_DetalleVenta d in lista_Detalle)
-        { 
+        foreach (Cls_DetalleVenta d in lista_Detalle)
+        {
             float descuento = d.Descuento ?? 0f;
             MontoTotal += d.Precio_Unitario * d.Cantidad * (1 - descuento);
 
@@ -222,5 +247,29 @@ public partial class Page_Form_Pedidos : ContentPage
         Monto.Text = MontoTotal.ToString();
         Tiempo.Text = tiempo_p.ToString();
     }
+    private async void Click_btn_Cancelar_Pedido(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("Page_Pedidos");
+    }
 
+    private async void SelectedIndexChanged_picker_Promociones(object sender, EventArgs e)
+    {
+        if (picker_Descuentos.SelectedItem is Cls_Promociones promo)
+        {
+            if (promo.Cantidad_Aplicable > 0)
+            {
+                int cantidadActual = 0;
+
+                if (!string.IsNullOrWhiteSpace(Cantidad.Text))
+                {
+                    int.TryParse(Cantidad.Text.Trim(), out cantidadActual);
+                }
+
+                if (cantidadActual < promo.Cantidad_Aplicable)
+                {
+                    Cantidad.Text = promo.Cantidad_Aplicable.ToString();
+                }
+            }
+        }
+    }
 }

@@ -39,21 +39,17 @@ public partial class Page_Form_Usuario : ContentPage, IQueryAttributable
                 user.Rol = picker_Rol.SelectedItem?.ToString();
 
                 await Client.Insert_UserAsync(user);
+
+                mostrar_mensage("Usuario ingresado exitozamente", true);
             }
             catch (Exception ex)
             {
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                {
-                    await DisplayAlert("Error", ex.Message, "OK");
-                });
+                mostrar_mensage(ex.Message, false);
             }
         }
         else
         {
-            await MainThread.InvokeOnMainThreadAsync(async () =>
-            {
-                await DisplayAlert("Error", "Contrasena no valida", "OK");
-            });
+            mostrar_mensage("Contrasena no valida", false);
         }
     }
 
@@ -74,15 +70,18 @@ public partial class Page_Form_Usuario : ContentPage, IQueryAttributable
             btn_Guardar.Clicked -= btn_Guardar_Usuario;
             btn_Guardar.Clicked += btn_Actualizar_Usuario;
         }
-        catch (Exception ex)
+        catch 
         {
-            await MainThread.InvokeOnMainThreadAsync(async () =>
-            {
-                await DisplayAlert("Error", ex.Message, "OK");
-            });
+            mostrar_mensage("Usario no encontrado", false);
         }
     }
 
+    private void mostrar_mensage(string mensage,bool error)
+    {
+        lblError.Text = mensage;
+        lblError.TextColor = error ?Colors.Green: Colors.Red;
+        lblError.Opacity = 1;
+    }
     private async void btn_Actualizar_Usuario(object sender, EventArgs e)
     {
         Cls_Usuarios user = new Cls_Usuarios();
@@ -100,22 +99,16 @@ public partial class Page_Form_Usuario : ContentPage, IQueryAttributable
                 user.Rol = picker_Rol.SelectedItem?.ToString();
 
                 await Client.Update_UserAsync(user);
-                await DisplayAlert("Exito","usuario actualizado exitozamente", "OK");
+                mostrar_mensage("Usuario actualizado exitozamente", true);
             }
             catch (Exception ex)
             {
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                {                  
-                    await DisplayAlert("Error", ex.Message, "OK");
-                });
+                mostrar_mensage(ex.Message, false);
             }
         }
         else
         {
-            await MainThread.InvokeOnMainThreadAsync(async () =>
-            {
-                await DisplayAlert("Error", "Contrasena no valida", "OK");
-            });
+            mostrar_mensage("Contrasena no valida", false);
         }
     }
 
@@ -126,5 +119,10 @@ public partial class Page_Form_Usuario : ContentPage, IQueryAttributable
             Id_Usuario = int.Parse(s: query["Id_Usuario"].ToString());
             Cargar_usuario();
         }
+    }
+
+    private async void btn_Cancelar_Guardado(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("Page_Usuarios");
     }
 }

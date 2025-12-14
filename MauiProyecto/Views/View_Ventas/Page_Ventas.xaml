@@ -108,7 +108,10 @@
                             <!-- CollectionView -->
                             <CollectionView 
                                 x:Name="TablaPedidos"
-                                SelectionMode="Single">
+                                ItemsSource="{Binding ListaPedidos}"
+                                Scrolled="TablaPedidos_Scrolled"
+                                SelectionMode="Single"
+                                HeightRequest="430">
 
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="models:Cls_Ventas">

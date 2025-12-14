@@ -7,9 +7,7 @@
 
     <components:Background_Image>
         <ScrollView>
-            <VerticalStackLayout 
-        Spacing="18" 
-        Padding="16">
+            <VerticalStackLayout Spacing="18"  Padding="16">
 
                 <!-- CONTENEDOR PRINCIPAL -->
                 <Border 
@@ -53,7 +51,7 @@
 
                         <components:Input_Float
                             x:Name="MontoTotal"
-                            Placeholder="Monto Total"
+                            Placeholder="Costo Total"
                             IsEnabled="False"/>
                         
                         <components:Input_Float

@@ -59,7 +59,8 @@
                                 Placeholder="Disponible"
                                 IsEnabled="False"
                                 Text="0"
-                                Grid.Column="1"/>
+                                Grid.Column="1"
+                                Opacity="0.7"/>
                         </Grid>
                         <Grid 
                             ColumnDefinitions="*, *" 
@@ -71,7 +72,8 @@
                                 x:Name="Precio"
                                 Text="0"
                                 IsEnabled="False"
-                                Placeholder="Precio" />
+                                Placeholder="Precio" 
+                                Opacity="0.7"/>
 
                             <Border
                                 Grid.Column="1"
@@ -90,7 +92,8 @@
                                         FontSize="16"
                                         TextColor="Black"
                                         HorizontalOptions="Fill"
-                                        VerticalOptions="Center" />
+                                        VerticalOptions="Center"
+                                        SelectedIndexChanged="SelectedIndexChanged_picker_Promociones"/>
 
                                 </HorizontalStackLayout>
                             </Border>
@@ -129,7 +132,7 @@
                             TextColor="Red" 
                             FontSize="14" 
                             HorizontalOptions="Center" 
-                            IsVisible="False" />
+                            Opacity="0" />
                         
                         <!-- Tabla de Detalle -->
                         <Border BackgroundColor="White" 
@@ -265,11 +268,12 @@
 
                             <Button 
                                 x:Name="btn_Cancelar"
-                                Text="Cancelar"
+                                Text="Regresar"
                                 BackgroundColor="Red"
                                 TextColor="Black"
                                 WidthRequest="150"
-                                CornerRadius="10"/>
+                                CornerRadius="10"
+                                Clicked="Click_btn_Cancelar_Pedido"/>
 
                             <Button 
                                 x:Name="btn_Pago"

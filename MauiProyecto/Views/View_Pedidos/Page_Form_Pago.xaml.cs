@@ -174,7 +174,7 @@ public partial class Page_Form_Pago : ContentPage, IQueryAttributable
                     venta.Metodo_Pago = picker_Tipo.SelectedItem?.ToString();
                 }
 
-                await Client.Insert_VentaAsync(venta);
+                int id_venta = await Client.Insert_Venta_Return_IdAsync(venta);
 
                 System.Diagnostics.Debug.WriteLine("[PEDIDO] ✓ Venta insertada exitosamente");
 

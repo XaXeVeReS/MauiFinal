@@ -31,6 +31,14 @@
                                HorizontalOptions="Center"
                                TextColor="Black" />
 
+                        <Label 
+                            x:Name="lblError" 
+                            Text="" 
+                            TextColor="Red" 
+                            FontSize="14" 
+                            HorizontalOptions="Center" 
+                            Opacity="0" />
+                        
                         <components:Input_Text 
                                 x:Name="nombre_usuario"
                                 Placeholder="Nombre" />
@@ -123,11 +131,12 @@
 
                         <Button 
                             x:Name="btn_Cancelar"
-                            Text="Cancelar"
+                            Text="Regresar"
                             BackgroundColor="Red"
                             TextColor="Black"
                             WidthRequest="150"
-                            CornerRadius="10"/>
+                            CornerRadius="10"
+                            Clicked="btn_Cancelar_Guardado"/>
 
                         <Button 
                             x:Name="btn_Guardar"

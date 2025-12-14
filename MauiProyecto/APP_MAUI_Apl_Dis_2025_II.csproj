@@ -132,7 +132,4 @@
     <PackageReference Include="System.ServiceModel.Primitives" Version="8.1.2" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="8.1.2" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Connected Services\" />
-  </ItemGroup>
 </Project>
