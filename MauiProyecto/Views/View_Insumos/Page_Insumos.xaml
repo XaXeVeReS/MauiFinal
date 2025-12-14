@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Insumos.Page_Insumos"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             Title="Gestión de Insumos">
+    
+    <components:Background_Image>
+        <Grid RowDefinitions="Auto,*,Auto" Padding="10" RowSpacing="10">
+            
+            <!-- Encabezado -->
+            <components:Encabezado Grid.Row="0"/>
+
+            <!-- Lista de Insumos -->
+            <Border Grid.Row="1"
+                    BackgroundColor="#D9D9D9"
+                    StrokeShape="RoundRectangle 15"
+                    Stroke="#000000"
+                    StrokeThickness="1"
+                    Padding="10">
+                
+                <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10">
+                    
+                    <!-- Título y Búsqueda -->
+                    <Grid Grid.Row="0" ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <Label Text="LISTA DE INSUMOS"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               VerticalOptions="Center"/>
+                        
+                        <Button Grid.Column="1"
+                                Text="+ Nuevo Insumo"
+                                BackgroundColor="#28a745"
+                                TextColor="White"
+                                FontSize="14"
+                                CornerRadius="8"
+                                Clicked="Nuevo_Insumo_Clicked"/>
+                    </Grid>
+
+                    <!-- Barra de búsqueda y filtro -->
+                    <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <SearchBar x:Name="searchBar"
+                                   Placeholder="Buscar insumo..."
+                                   TextChanged="OnSearch"
+                                   BackgroundColor="White"/>
+                        
+                        <Picker x:Name="pickerFiltro"
+                                Grid.Column="1"
+                                Title="Filtrar"
+                                WidthRequest="150"
+                                SelectedIndexChanged="OnFiltroChanged">
+                            <Picker.Items>
+                                <x:String>Todos</x:String>
+                                <x:String>Stock Bajo</x:String>
+                                <x:String>Stock Normal</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Grid>
+
+                    <!-- CollectionView de Insumos -->
+                    <CollectionView x:Name="listaInsumos"
+                                    Grid.Row="2"
+                                    SelectionMode="None"
+                                    EmptyView="No hay insumos registrados">
+                        
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="White"
+                                        StrokeShape="RoundRectangle 10"
+                                        Stroke="#dee2e6"
+                                        StrokeThickness="1"
+                                        Padding="12"
+                                        Margin="0,5">
+                                    
+                                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10">
+                                        
+                                        <!-- Nombre del Insumo -->
+                                        <Label Grid.Column="0" Grid.Row="0"
+                                               Text="{Binding Nombre}"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="#212529"/>
+                                        
+                                        <!-- Indicador de Stock -->
+                                        <BoxView Grid.Column="1" Grid.RowSpan="3"
+                                                 WidthRequest="8"
+                                                 CornerRadius="4"
+                                                 Color="{Binding Stock_Color}"/>
+                                        
+                                        <!-- Información de Stock -->
+                                        <Label Grid.Column="0" Grid.Row="1"
+                                               FontSize="14"
+                                               TextColor="#6c757d">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Stock: "/>
+                                                    <Span Text="{Binding Stock_Disponible, StringFormat='{0:F2}'}"/>
+                                                    <Span Text=" "/>
+                                                    <Span Text="{Binding Unidad_Medida}"/>
+                                                    <Span Text=" | Mínimo: "/>
+                                                    <Span Text="{Binding Stock_Minimo, StringFormat='{0:F2}'}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <!-- Botones de Acción -->
+                                        <HorizontalStackLayout Grid.Column="0" Grid.Row="2" Spacing="10" Margin="0,10,0,0">
+                                            <Button Text="Editar"
+                                                    BackgroundColor="#007bff"
+                                                    TextColor="White"
+                                                    FontSize="12"
+                                                    CornerRadius="5"
+                                                    Padding="15,8"
+                                                    Clicked="Editar_Insumo_Clicked"
+                                                    CommandParameter="{Binding}"/>
+                                            
+                                            <Button Text="Eliminar"
+                                                    BackgroundColor="#dc3545"
+                                                    TextColor="White"
+                                                    FontSize="12"
+                                                    CornerRadius="5"
+                                                    Padding="15,8"
+                                                    Clicked="Eliminar_Insumo_Clicked"
+                                                    CommandParameter="{Binding}"/>
+                                            
+                                            <Button Text="Ver Cardex"
+                                                    BackgroundColor="#6c757d"
+                                                    TextColor="White"
+                                                    FontSize="12"
+                                                    CornerRadius="5"
+                                                    Padding="15,8"
+                                                    Clicked="Ver_Cardex_Clicked"
+                                                    CommandParameter="{Binding}"/>
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Border>
+
+            <!-- Indicador de carga -->
+            <ActivityIndicator Grid.Row="1"
+                               x:Name="loadingIndicator"
+                               IsRunning="False"
+                               IsVisible="False"
+                               Color="#007bff"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+        </Grid>
+    </components:Background_Image>
+</ContentPage>

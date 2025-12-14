@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Platos.Page_Platos"
+             Title="Page_Platos">
+
+    <Grid>
+
+        <!-- 🔶 FONDO -->
+        <components:Background_Image 
+            ZIndex="0"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"/>
+
+
+        <!-- 🔷 CONTENIDO -->
+        <Grid ZIndex="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- ENCABEZADO -->
+                <RowDefinition Height="*" />
+                <!-- LISTA -->
+            </Grid.RowDefinitions>
+
+            <!-- 🔹 ENCABEZADO reutilizable -->
+            <components:Encabezado Grid.Row="0" />
+
+            <!-- 🔸 CONTENIDO PRINCIPAL -->
+            <Grid Grid.Row="1" Padding="20">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- TÍTULO -->
+                <Label Grid.Row="0" Grid.Column="0"
+                       Text="Platos"
+                       FontSize="35"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       HorizontalOptions="End" />
+
+                <!-- BOTÓN + -->
+                <ImageButton Grid.Row="0" Grid.Column="1"
+                             Source="agregar.png"
+                             WidthRequest="60"
+                             HeightRequest="60"
+                             BackgroundColor="Transparent"
+                             Clicked="btnAgregarPlato"/>
+
+                <!-- LISTA -->
+                <CollectionView x:Name="cvPlatos"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Margin="0,30,0,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid HeightRequest="45"
+                                  VerticalOptions="Center"
+                                  ColumnSpacing="10"
+                                  Padding="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- NOMBRE PLATO -->
+                                <Frame Grid.Column="0"
+                                       BackgroundColor="#CCCCCC"
+                                       CornerRadius="6"
+                                       Padding="5"
+                                       VerticalOptions="Center"
+                                       HeightRequest="40">
+                                    <Label Text="{Binding Nombre}"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="16"/>
+                                </Frame>
+
+                                <!-- EDITAR -->
+                                <ImageButton Grid.Column="1"
+                                             Source="editar.png"
+                                             BackgroundColor="Transparent"
+                                             Clicked="btnEditar_Clicked"/>
+
+                                <!-- ELIMINAR -->
+                                <ImageButton Grid.Column="2"
+                                             Source="eliminar.png"
+                                             BackgroundColor="Transparent"
+                                             Clicked="btnEliminar_Clicked"/>
+
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+
+</ContentPage>

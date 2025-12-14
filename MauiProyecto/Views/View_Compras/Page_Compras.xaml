@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Compras.Page_Compras"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             Title="Compras">
+    
+    <components:Background_Image>
+        <ScrollView>
+            <VerticalStackLayout Spacing="15" Padding="10">
+                <components:Encabezado/>
+
+                <Border BackgroundColor="#D9D9D9"
+                        Padding="15"
+                        StrokeShape="RoundRectangle 15"
+                        Stroke="#000000"
+                        StrokeThickness="1">
+
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="ÓRDENES DE COMPRA"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               HorizontalOptions="Center"/>
+
+                        <!-- Barra de búsqueda y nuevo -->
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                            <Border Grid.Column="0"
+                                    Background="White"
+                                    StrokeShape="RoundRectangle 15"
+                                    HeightRequest="50">
+                                <SearchBar x:Name="searchBar"
+                                           Placeholder="Buscar por proveedor..."
+                                           TextChanged="OnSearch"
+                                           FontSize="14"
+                                           PlaceholderColor="Gray"
+                                           TextColor="Black"
+                                           BackgroundColor="Transparent"/>
+                            </Border>
+
+                            <Button Grid.Column="1"
+                                    Text="+"
+                                    FontSize="32"
+                                    WidthRequest="50"
+                                    HeightRequest="50"
+                                    CornerRadius="25"
+                                    BackgroundColor="#28a745"
+                                    TextColor="White"
+                                    Clicked="Nueva_Compra_Clicked"/>
+                        </Grid>
+
+                        <!-- Filtros -->
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <Border Grid.Column="0"
+                                    Background="White"
+                                    StrokeShape="RoundRectangle 15"
+                                    HeightRequest="50">
+                                <Picker x:Name="pickerEstado"
+                                        Title="Estado"
+                                        FontSize="14"
+                                        TextColor="Black"
+                                        HorizontalOptions="Fill"
+                                        SelectedIndexChanged="OnFiltroChanged">
+                                    <Picker.Items>
+                                        <x:String>Todos</x:String>
+                                        <x:String>Pendiente</x:String>
+                                        <x:String>Recibida</x:String>
+                                        <x:String>Cancelada</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Border>
+
+                            <Button Grid.Column="1"
+                                    Text="↻ Actualizar"
+                                    BackgroundColor="#007bff"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    Clicked="Actualizar_Clicked"/>
+                        </Grid>
+
+                        <!-- Lista de Compras -->
+                        <CollectionView x:Name="collectionCompras"
+                                        SelectionMode="None"
+                                        EmptyView="No hay órdenes de compra registradas">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BackgroundColor="White"
+                                            Padding="12"
+                                            Margin="0,0,0,10"
+                                            StrokeShape="RoundRectangle 10"
+                                            Stroke="#dee2e6"
+                                            StrokeThickness="1">
+                                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                                            
+                                            <!-- Encabezado con ID y Estado -->
+                                            <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Spacing="10">
+                                                <Label Text="{Binding Id_Display}"
+                                                       FontSize="14"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#495057"/>
+                                                <Border BackgroundColor="{Binding Color_Estado}"
+                                                        Padding="6,2"
+                                                        StrokeShape="RoundRectangle 8">
+                                                    <Label Text="{Binding Estado}"
+                                                           FontSize="11"
+                                                           TextColor="White"
+                                                           FontAttributes="Bold"/>
+                                                </Border>
+                                            </HorizontalStackLayout>
+
+                                            <!-- Fecha -->
+                                            <Label Grid.Row="0" Grid.Column="1"
+                                                   Text="{Binding Fecha_Formatted}"
+                                                   FontSize="12"
+                                                   TextColor="#6c757d"
+                                                   HorizontalOptions="End"/>
+
+                                            <!-- Proveedor -->
+                                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                                   Text="{Binding Proveedor}"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="Black"
+                                                   Margin="0,5,0,0"/>
+
+                                            <!-- Total -->
+                                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                                   Text="{Binding Total_Display}"
+                                                   FontSize="18"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#28a745"
+                                                   Margin="0,5,0,0"/>
+
+                                            <!-- Observaciones -->
+                                            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                                   Text="{Binding Observaciones}"
+                                                   FontSize="12"
+                                                   TextColor="#6c757d"
+                                                   LineBreakMode="TailTruncation"
+                                                   MaxLines="2"
+                                                   Margin="0,5,0,0"/>
+
+                                            <!-- Botones de acción -->
+                                            <HorizontalStackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                                                                   Spacing="10"
+                                                                   Margin="0,10,0,0">
+                                                <Button Text="Ver Detalle"
+                                                        BackgroundColor="#007bff"
+                                                        TextColor="White"
+                                                        CornerRadius="8"
+                                                        FontSize="12"
+                                                        Padding="10,5"
+                                                        Clicked="Ver_Detalle_Clicked"
+                                                        CommandParameter="{Binding Id_Compra}"/>
+
+                                                <Button Text="Editar"
+                                                        BackgroundColor="#ffc107"
+                                                        TextColor="White"
+                                                        CornerRadius="8"
+                                                        FontSize="12"
+                                                        Padding="10,5"
+                                                        Clicked="Editar_Compra_Clicked"
+                                                        CommandParameter="{Binding Id_Compra}"
+                                                        IsVisible="{Binding Puede_Editar}"/>
+
+                                                <Button Text="Eliminar"
+                                                        BackgroundColor="#dc3545"
+                                                        TextColor="White"
+                                                        CornerRadius="8"
+                                                        FontSize="12"
+                                                        Padding="10,5"
+                                                        Clicked="Eliminar_Compra_Clicked"
+                                                        CommandParameter="{Binding Id_Compra}"
+                                                        IsVisible="{Binding Puede_Eliminar}"/>
+                                            </HorizontalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+    </components:Background_Image>
+</ContentPage>

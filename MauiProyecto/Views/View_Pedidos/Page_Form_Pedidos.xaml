@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Pedidos.Page_Form_Pedidos"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             xmlns:models="clr-namespace:WCF_Apl_Dis">
+
+    <components:Background_Image>
+        <ScrollView>
+            <VerticalStackLayout 
+            Spacing="18" 
+            Padding="16">
+
+                <!-- CONTENEDOR PRINCIPAL -->
+                <Border 
+                    BackgroundColor="#D9D9D9"
+                    Padding="15"
+                    StrokeShape="RoundRectangle 15"
+                    Stroke="#000000"
+                    StrokeThickness="1">
+
+                    <VerticalStackLayout Spacing="15" Padding="10">
+
+                        <!-- Título -->
+                        <Label Text="Nuevo Pedido"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="Black" />
+
+                        <Grid 
+                            ColumnDefinitions="*, *" 
+                            Padding="0"
+                            HeightRequest="80"
+                            ColumnSpacing="20">
+                            
+                            <Border
+                                Grid.Column="0"
+                                Background="White"
+                                StrokeShape="RoundRectangle 15"
+                                HeightRequest="80"
+                                HorizontalOptions="Fill">
+
+                                <HorizontalStackLayout 
+                                    Padding="6"
+                                    VerticalOptions="Center">
+                                    <Picker
+                                        x:Name="picker_Platos"
+                                        Title="Seleccionar Plato"
+                                        FontSize="16"
+                                        TextColor="Black"
+                                        HorizontalOptions="Fill"                               
+                                        SelectedIndexChanged="SelectedIndexChanged_picker_Platos"/>
+                                </HorizontalStackLayout>
+                            </Border>
+
+                            <components:Input_Int 
+                                x:Name="Disponible"
+                                Placeholder="Disponible"
+                                IsEnabled="False"
+                                Text="0"
+                                Grid.Column="1"/>
+                        </Grid>
+                        <Grid 
+                            ColumnDefinitions="*, *" 
+                            Padding="0"
+                            HeightRequest="80"
+                            ColumnSpacing="20">
+
+                            <components:Input_Float
+                                x:Name="Precio"
+                                Text="0"
+                                IsEnabled="False"
+                                Placeholder="Precio" />
+
+                            <Border
+                                Grid.Column="1"
+                                Background="White"
+                                StrokeShape="RoundRectangle 15"
+                                HeightRequest="80"
+                                HorizontalOptions="Fill">
+
+                                <HorizontalStackLayout 
+                                    Padding="6"
+                                    VerticalOptions="Center">
+
+                                    <Picker
+                                        x:Name="picker_Descuentos"
+                                        Title="Seleccionar Descuento"
+                                        FontSize="16"
+                                        TextColor="Black"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Center" />
+
+                                </HorizontalStackLayout>
+                            </Border>
+
+                        </Grid>
+                        <Grid 
+                            ColumnDefinitions="*, *" 
+                            Padding="0"
+                            ColumnSpacing="20">
+
+                            <components:Input_Int 
+                                x:Name="Cantidad"
+                                Placeholder="Cantidad"
+                                Text="0"
+                                Grid.Column="0"/>
+
+                            <HorizontalStackLayout 
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center">
+
+                                <Button 
+                                    Text="Agregar"
+                                    BackgroundColor="Blue"
+                                    TextColor="White"
+                                    WidthRequest="150"
+                                    HorizontalOptions="Fill"
+                                    CornerRadius="10"
+                                    Clicked="Click_btn_agregar"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                        
+                        <Label 
+                            x:Name="lblError" 
+                            Text="" 
+                            TextColor="Red" 
+                            FontSize="14" 
+                            HorizontalOptions="Center" 
+                            IsVisible="False" />
+                        
+                        <!-- Tabla de Detalle -->
+                        <Border BackgroundColor="White" 
+                             StrokeThickness="0" 
+                             Padding="10" 
+                             StrokeShape="RoundRectangle 12">
+
+                            <VerticalStackLayout 
+                                Spacing="10">
+
+                                <!-- Encabezado -->
+                                <Grid ColumnSpacing="10"
+                                     RowDefinitions="45"
+                                     ColumnDefinitions="*,1.2*,*,*,*">
+
+                                    <Label Text="Plato"
+                                         TextColor="Black"
+                                         FontAttributes="Bold"
+                                         VerticalOptions="Center"/>
+
+                                    <Label Text="Precio"
+                                         TextColor="Black"
+                                         Grid.Column="1"
+                                         FontAttributes="Bold"
+                                         VerticalOptions="Center"/>
+
+                                    <Label Text="Cantidad"
+                                         TextColor="Black"
+                                         Grid.Column="2"
+                                         FontAttributes="Bold"
+                                         VerticalOptions="Center"/>
+                                    
+                                    <Label Text="Descuento"
+                                         TextColor="Black"
+                                         Grid.Column="3"
+                                         FontAttributes="Bold"
+                                         VerticalOptions="Center"/>
+                                    
+                                    <Label Text="Quitar"
+                                         TextColor="Black"
+                                         Grid.Column="4"
+                                         FontAttributes="Bold"
+                                         VerticalOptions="Center"/>
+                                </Grid>
+
+                                <BoxView HeightRequest="1" Color="#E0E0E0"/>
+
+                                <!-- CollectionView -->
+                                <CollectionView 
+                                     x:Name="TablaDetalle"
+                                     SelectionMode="Single">
+
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid ColumnSpacing="10"
+                                                 RowDefinitions="45"
+                                                 ColumnDefinitions="*,1.2*,*,*"
+                                                 Padding="5"
+                                                 BackgroundColor="White">
+
+                                                <Label 
+                                                     Text="{Binding txt_Plato}"
+                                                     TextColor="Black"/>
+
+                                                <Label 
+                                                     TextColor="Black"
+                                                     Text="{Binding Precio_Unitario}"
+                                                     Grid.Column="1" />
+
+                                                <Label 
+                                                     TextColor="Black"
+                                                     Text="{Binding Cantidad}"
+                                                     Grid.Column="2" />
+
+                                                <Label 
+                                                     TextColor="Black"
+                                                     Text="{Binding Descuento}"
+                                                     Grid.Column="3" />
+                                                
+                                                <ImageButton 
+                                                     Source="eliminar.png"
+                                                     Grid.Column="4"
+                                                     Clicked="Click_btn_Quitar"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+
+                                </CollectionView>
+                                <BoxView HeightRequest="1" Color="#E0E0E0"/>
+
+                                <Grid ColumnSpacing="10"
+                                     RowDefinitions="45"
+                                     ColumnDefinitions="*,*,*,*">
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Text="Tiempo estimado minutos:"
+                                        TextColor="Black"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="End"/>
+                                    
+                                    <Label 
+                                        Grid.Column="1"
+                                        x:Name="Tiempo"
+                                        Text="0"
+                                        TextColor="Black"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="End"/>
+
+                                    <Label 
+                                        Grid.Column="2"
+                                        Text="Monto:"
+                                        TextColor="Black"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="End"/>
+
+                                    <Label 
+                                        Grid.Column="3"
+                                        x:Name="Monto"
+                                        Text="0"
+                                        TextColor="Black"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="End"/>
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                        
+                        <!-- Botones de acción -->
+                        <HorizontalStackLayout 
+                            Spacing="20" 
+                            HorizontalOptions="Center">
+
+                            <Button 
+                                x:Name="btn_Cancelar"
+                                Text="Cancelar"
+                                BackgroundColor="Red"
+                                TextColor="Black"
+                                WidthRequest="150"
+                                CornerRadius="10"/>
+
+                            <Button 
+                                x:Name="btn_Pago"
+                                Text="Realizar Pago"
+                                BackgroundColor="Green"
+                                TextColor="White"
+                                WidthRequest="150"
+                                CornerRadius="10"
+                                Clicked="Click_btn_Realizar_Pago"/>
+
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+    </components:Background_Image>
+</ContentPage>

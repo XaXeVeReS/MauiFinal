@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             xmlns:core ="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Core"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Alertas.Page_Alertas"
+             Title="Alertas del Sistema">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <components:Background_Image 
+            Grid.RowSpan="2"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            ZIndex="0"/>
+
+        <components:Encabezado Grid.Row="0" ZIndex="1"/>
+
+        <Grid Grid.Row="1" ZIndex="1" Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="Centro de Alertas"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                   FontSize="28"
+                   TextColor="Black"
+                   Margin="0,0,0,15"/>
+
+            <Label x:Name="lblSinAlertas"
+                   Grid.Row="1"
+                   Text="No tienes nuevas alertas 🎉"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   TextColor="Gray"
+                   FontSize="18"
+                   IsVisible="False"/>
+
+            <CollectionView x:Name="cvAlertas" 
+                            Grid.Row="1"
+                            ItemsSource="{Binding}">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="12"
+                               Padding="0"
+                               HasShadow="True"
+                               BorderColor="Transparent"
+                               BackgroundColor="White"
+                               HeightRequest="90">
+
+                            <Grid ColumnDefinitions="10, *, Auto">
+
+                                <BoxView Grid.Column="0" 
+                                         Color="{Binding Color}" 
+                                         VerticalOptions="Fill"/>
+
+                                <VerticalStackLayout Grid.Column="1" 
+                                                     Padding="10,10,0,10" 
+                                                     VerticalOptions="Center"
+                                                     Spacing="2">
+                                    <Label Text="{Binding Mensaje}"
+                                           FontAttributes="Bold"
+                                           FontSize="16"
+                                           TextColor="#333333"
+                                           LineBreakMode="TailTruncation"/>
+
+                                    <Label Text="{Binding Detalle}"
+                                           FontSize="13"
+                                           TextColor="#666666"
+                                           MaxLines="2"
+                                           LineBreakMode="TailTruncation"/>
+                                </VerticalStackLayout>
+
+                                <Button Grid.Column="2"
+                                        Text="✕"
+                                        TextColor="#999999"
+                                        BackgroundColor="Transparent"
+                                        FontSize="16"
+                                        WidthRequest="40"
+                                        HeightRequest="40"
+                                        VerticalOptions="Start"
+                                        HorizontalOptions="End"
+                                        Clicked="BtnCerrar_Clicked"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>

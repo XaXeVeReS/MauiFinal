@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Usuario.Page_Form_Usuario"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components">
+
+    <components:Background_Image>
+        <ScrollView>
+            <VerticalStackLayout 
+                Spacing="18" 
+                Padding="16">
+
+                <!-- CONTENEDOR PRINCIPAL -->
+                <Border 
+                    BackgroundColor="#D9D9D9"
+                    Padding="15"
+                    StrokeShape="RoundRectangle 15"
+                    Stroke="#000000"
+                    StrokeThickness="1">
+                    
+                    <VerticalStackLayout 
+                        x:Name="Formulario"
+                        IsVisible="True"
+                        Spacing="15" 
+                        Padding="10">
+
+                        <!-- Título -->
+                        <Label Text="Nuevo Usuario"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="Black" />
+
+                        <components:Input_Text 
+                                x:Name="nombre_usuario"
+                                Placeholder="Nombre" />
+
+                        <components:Input_Text 
+                                x:Name="email"
+                                Placeholder="Email" />
+
+                        <components:Input_Text 
+                                x:Name="telefono"
+                                Placeholder="Telefono" />
+
+                        <components:Input_Date
+                                x:Name="Fecha"
+                                Placeholder="Fecha de registro" />
+
+                        <components:Input_Password
+                                x:Name="contrasena"
+                                Placeholder="Contrasena" />
+
+                        <components:Input_Password
+                                x:Name="confirmar"
+                                Placeholder="Confirmar" />
+
+                        <Border
+                            StrokeThickness="0"
+                            Background="White"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="10"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Start">
+
+                            <HorizontalStackLayout 
+                                Spacing="10"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Fill">
+
+                                <Picker
+                                    x:Name="picker_Rol"
+                                    Title="Seleccionar Rol"
+                                    FontSize="16"
+                                    TextColor="Black"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Center">
+
+                                    <Picker.Items>
+                                        <x:String>Cliente</x:String>
+                                        <x:String>Empleado</x:String>
+                                        <x:String>Administrador</x:String>
+                                    </Picker.Items>
+
+                                </Picker>
+
+                            </HorizontalStackLayout>
+                        </Border>
+
+
+                        <Border
+                            StrokeThickness="0"
+                            Background="White"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="0"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Center">
+    
+                            <HorizontalStackLayout 
+                                    Padding="6"
+                                    HeightRequest="55"
+                                    VerticalOptions="Center"
+                                    Spacing="10">
+
+                                <Switch 
+                                        x:Name="Activo_switch"
+                                        Toggled="Switch_Activo"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center" />
+
+                                <Label x:Name="lblActivo"
+                                        Text="Usuario: Suspendido"
+                                        FontSize="16"
+                                        TextColor="Black"
+                                        VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+
+                        <!-- Botones de acción -->
+                        <HorizontalStackLayout 
+                            Spacing="20" 
+                            HorizontalOptions="Center">
+
+                        <Button 
+                            x:Name="btn_Cancelar"
+                            Text="Cancelar"
+                            BackgroundColor="Red"
+                            TextColor="Black"
+                            WidthRequest="150"
+                            CornerRadius="10"/>
+
+                        <Button 
+                            x:Name="btn_Guardar"
+                            Text="Guardar"
+                            BackgroundColor="Green"
+                            TextColor="White"
+                            WidthRequest="150"
+                            CornerRadius="10"
+                            Clicked="btn_Guardar_Usuario"/>
+
+                    </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+    </components:Background_Image>
+</ContentPage>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+    x:Class="APP_MAUI_Apl_Dis_2025_II.Views.Components.Input_Int"
+    HorizontalOptions="Fill"
+    VerticalOptions="Center"
+    Padding="0"
+    HeightRequest="55">
+
+    <Border
+        x:Name="border"
+        StrokeThickness="1"
+        Stroke="#FF6F00"
+        StrokeShape="RoundRectangle 15"
+        BackgroundColor="White"
+        Padding="8,8,8,0"
+        VerticalOptions="Center"
+        HorizontalOptions="Fill">
+
+        <Grid ColumnDefinitions="*" HorizontalOptions="Fill">
+
+            <!-- Label flotante -->
+            <Label
+                x:Name="floatingLabel"
+                Text="{Binding Placeholder}"
+                TextColor="#FF6F00"
+                FontSize="14"
+                TranslationY="12"
+                Margin="6"
+                BackgroundColor="Transparent"
+                IsVisible="True"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"/>
+
+            <!-- Campo entero -->
+            <Entry
+                x:Name="txtInput"
+                Text="{Binding Text, Mode=TwoWay}"
+                Keyboard="Numeric"
+                TextColor="Black"
+                BackgroundColor="Transparent"
+                FontSize="16"
+                Margin="0,6,0,0"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                Completed="OnCompleted"
+                Focused="OnEntryFocused"
+                Unfocused="OnEntryUnfocused"
+                TextChanged="OnEntryTextChanged"/>
+        </Grid>
+    </Border>
+</Grid>

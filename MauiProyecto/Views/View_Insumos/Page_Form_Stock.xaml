@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Insumos.Page_Form_Stock"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             xmlns:models="clr-namespace:WCF_Apl_Dis"
+             BackgroundColor="#F5F5F5">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#2196F3</Color>
+            <Color x:Key="CardBackground">White</Color>
+            <Color x:Key="TextPrimary">#333333</Color>
+            <Color x:Key="BorderColor">#E0E0E0</Color>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <components:Background_Image>
+        <ScrollView>
+            <VerticalStackLayout Spacing="20" Padding="16">
+
+                <Border BackgroundColor="{StaticResource CardBackground}"
+                        Padding="20"
+                        StrokeShape="RoundRectangle 15"
+                        Stroke="{StaticResource BorderColor}"
+                        StrokeThickness="1">
+
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,4" Opacity="0.1" Radius="10"/>
+                    </Border.Shadow>
+
+                    <VerticalStackLayout Spacing="20">
+
+                        <Label Text="Ajuste de Stock"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource TextPrimary}" />
+
+                        <Border BackgroundColor="#FAFAFA"
+                                StrokeShape="RoundRectangle 10"
+                                Stroke="{StaticResource BorderColor}"
+                                HeightRequest="110"
+                                Padding="10">
+
+                            <Grid ColumnDefinitions="1.2*, *, 1.2*" ColumnSpacing="10">
+
+                                <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+                                    <Label Text="Buscar:" FontSize="12" TextColor="Gray" Margin="0,0,0,2"/>
+                                    <Border Stroke="#CCCCCC" StrokeShape="RoundRectangle 5" Padding="5,0" HeightRequest="40">
+                                        <Entry x:Name="EntryBusqueda"
+                                               Placeholder="Nombre..."
+                                               TextColor="Black"
+                                               FontSize="14"
+                                               VerticalOptions="Center"
+                                               TextChanged="EntryBusqueda_TextChanged"
+                                               Completed="EntryBusqueda_Completed" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                                    <Label Text="Medida" FontSize="11" TextColor="Gray" HorizontalOptions="Center"/>
+                                    <Label x:Name="lblUnidMedida"
+                                           Text="-"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           TextColor="{StaticResource PrimaryColor}"/>
+                                </VerticalStackLayout>
+
+                                <Border Grid.Column="2" Stroke="#DDDDDD" StrokeThickness="1" BackgroundColor="White">
+                                    <CollectionView x:Name="ListaFiltrada"
+                                                    IsVisible="False"
+                                                    SelectionMode="Single"
+                                                    SelectionChanged="ListaFiltrada_SelectionChanged">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <VerticalStackLayout Padding="8,4" BackgroundColor="White">
+                                                    <Label Text="{Binding Nombre}" 
+                                                           TextColor="Black" 
+                                                           FontSize="12" 
+                                                           LineBreakMode="TailTruncation"/>
+                                                    <BoxView HeightRequest="1" Color="#F0F0F0" Margin="0,2,0,0"/>
+                                                </VerticalStackLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                        <CollectionView.EmptyView>
+                                            <Label Text="Sin resultados" FontSize="10" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </CollectionView.EmptyView>
+                                    </CollectionView>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="15" VerticalOptions="Center">
+                            <components:Input_Float Grid.Column="0"
+                                                    x:Name="InputStock"
+                                                    Placeholder="Cantidad a ingresar" />
+
+                            <ImageButton Grid.Column="1"
+                                         Source="agregar.png"
+                                         HeightRequest="45"
+                                         WidthRequest="45"
+                                         CornerRadius="10"
+                                         BackgroundColor="{StaticResource PrimaryColor}"
+                                         Padding="10"
+                                         Clicked="btnAgregarInsumo_Clicked">
+                                <ImageButton.Shadow>
+                                    <Shadow Brush="{StaticResource PrimaryColor}" Offset="0,2" Opacity="0.5"/>
+                                </ImageButton.Shadow>
+                            </ImageButton>
+                        </Grid>
+
+                        <Label x:Name="lblError"
+                               Text=""
+                               TextColor="#D32F2F"
+                               FontSize="13"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               IsVisible="False" />
+
+                        <BoxView HeightRequest="1" Color="{StaticResource BorderColor}" Margin="0,5"/>
+
+                        <Border StrokeThickness="1"
+                                Stroke="{StaticResource BorderColor}"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="0">
+
+                            <VerticalStackLayout>
+                                <Grid ColumnDefinitions="1.2*,*,*,*" 
+                                      Padding="10" 
+                                      BackgroundColor="#F4F4F4">
+                                    <Label Text="INSUMO" Grid.Column="0" FontAttributes="Bold" FontSize="12" VerticalOptions="Center"/>
+                                    <Label Text="MEDIDA" Grid.Column="1" FontAttributes="Bold" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Text="STOCK" Grid.Column="2" FontAttributes="Bold" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Text="ACCIÓN" Grid.Column="3" FontAttributes="Bold" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Grid>
+
+                                <BoxView HeightRequest="1" Color="{StaticResource BorderColor}"/>
+
+                                <CollectionView x:Name="TablaInsumos"
+                                                SelectionMode="Single"
+                                                HeightRequest="200">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:Cls_Insumos">
+                                            <Grid ColumnDefinitions="1.2*,*,*,*" 
+                                                  Padding="10,8" 
+                                                  RowDefinitions="Auto">
+
+                                                <Label Grid.Column="0" 
+                                                       Text="{Binding Nombre}" 
+                                                       VerticalOptions="Center" 
+                                                       FontSize="13"/>
+
+                                                <Label Grid.Column="1" 
+                                                       Text="{Binding Unidad_Medida}" 
+                                                       HorizontalOptions="Center" 
+                                                       VerticalOptions="Center" 
+                                                       FontSize="13"
+                                                       TextColor="#757575"/>
+
+                                                <Border Grid.Column="2" Stroke="#E0E0E0" StrokeShape="RoundRectangle 5" Padding="5,0" HeightRequest="35">
+                                                    <Entry Text="{Binding Stock_Disponible, Mode=TwoWay}"
+                                                           Keyboard="Numeric"
+                                                           Placeholder="0"
+                                                           HorizontalTextAlignment="Center"
+                                                           FontSize="13"
+                                                           TextChanged="EntryStock_TextChanged"/>
+                                                </Border>
+
+                                                <ImageButton Grid.Column="3"
+                                                             Source="editar.png"
+                                                             HeightRequest="30"
+                                                             WidthRequest="30"
+                                                             HorizontalOptions="Center"
+                                                             VerticalOptions="Center"
+                                                             BackgroundColor="Transparent"
+                                                             Clicked="btn_quitar_clicked"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                    <CollectionView.Footer>
+                                        <BoxView HeightRequest="1" Color="Transparent"/>
+                                    </CollectionView.Footer>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Button x:Name="btn_Actualizar"
+                                Text="CONFIRMAR AJUSTE"
+                                BackgroundColor="{StaticResource PrimaryColor}"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                WidthRequest="200"
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Center"
+                                Clicked="btn_ActualizarStock_Clicked">
+                            <Button.Shadow>
+                                <Shadow Brush="{StaticResource PrimaryColor}" Offset="0,4" Opacity="0.3"/>
+                            </Button.Shadow>
+                        </Button>
+
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+    </components:Background_Image>
+</ContentPage>

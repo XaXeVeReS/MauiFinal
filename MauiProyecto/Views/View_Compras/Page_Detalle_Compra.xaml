@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Compras.Page_Detalle_Compra"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             Title="Detalle de Compra">
+    
+    <components:Background_Image>
+        <ScrollView>
+            <VerticalStackLayout Spacing="15" Padding="10">
+                <components:Encabezado/>
+
+                <Border BackgroundColor="#D9D9D9"
+                        Padding="15"
+                        StrokeShape="RoundRectangle 15"
+                        Stroke="#000000"
+                        StrokeThickness="1">
+
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="DETALLE DE COMPRA"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               HorizontalOptions="Center"/>
+
+                        <!-- Información General -->
+                        <Border BackgroundColor="White"
+                                Padding="15"
+                                StrokeShape="RoundRectangle 10">
+                            <VerticalStackLayout Spacing="10">
+                                <HorizontalStackLayout Spacing="10">
+                                    <Label x:Name="lblIdCompra"
+                                           Text="Compra #---"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           TextColor="Black"/>
+                                    <Border x:Name="borderEstado"
+                                            BackgroundColor="Gray"
+                                            Padding="8,4"
+                                            StrokeShape="RoundRectangle 10">
+                                        <Label x:Name="lblEstado"
+                                               Text="---"
+                                               FontSize="12"
+                                               TextColor="White"
+                                               FontAttributes="Bold"/>
+                                    </Border>
+                                </HorizontalStackLayout>
+
+                                <BoxView HeightRequest="1" Color="#dee2e6"/>
+
+                                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+                                    <Label Grid.Row="0" Grid.Column="0" Text="Fecha:" FontSize="14" TextColor="#6c757d" FontAttributes="Bold"/>
+                                    <Label Grid.Row="0" Grid.Column="1" x:Name="lblFecha" Text="---" FontSize="14" TextColor="Black"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Proveedor:" FontSize="14" TextColor="#6c757d" FontAttributes="Bold"/>
+                                    <Label Grid.Row="1" Grid.Column="1" x:Name="lblProveedor" Text="---" FontSize="14" TextColor="Black"/>
+
+                                    <Label Grid.Row="2" Grid.Column="0" Text="Total:" FontSize="14" TextColor="#6c757d" FontAttributes="Bold"/>
+                                    <Label Grid.Row="2" Grid.Column="1" x:Name="lblTotal" Text="S/. 0.00" FontSize="16" TextColor="#28a745" FontAttributes="Bold"/>
+
+                                    <Label Grid.Row="3" Grid.Column="0" Text="Observaciones:" FontSize="14" TextColor="#6c757d" FontAttributes="Bold" VerticalOptions="Start"/>
+                                    <Label Grid.Row="3" Grid.Column="1" x:Name="lblObservaciones" Text="---" FontSize="14" TextColor="Black" LineBreakMode="WordWrap"/>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Detalles de Insumos -->
+                        <Label Text="INSUMOS COMPRADOS"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               Margin="0,10,0,0"/>
+
+                        <CollectionView x:Name="collectionDetalles"
+                                        SelectionMode="None"
+                                        EmptyView="No hay detalles de compra">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BackgroundColor="White"
+                                            Padding="12"
+                                            Margin="0,0,0,10"
+                                            StrokeShape="RoundRectangle 10"
+                                            Stroke="#dee2e6"
+                                            StrokeThickness="1">
+                                        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*">
+                                            
+                                            <!-- Nombre del insumo -->
+                                            <Label Grid.Row="0"
+                                                   Text="{Binding Nombre_Insumo}"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="Black"/>
+
+                                            <!-- Cantidad -->
+                                            <HorizontalStackLayout Grid.Row="1" Spacing="20" Margin="0,5,0,0">
+                                                <Label Text="{Binding Cantidad_Display}"
+                                                       FontSize="14"
+                                                       TextColor="#495057"/>
+                                                <Label Text="{Binding PrecioUnitario_Display}"
+                                                       FontSize="14"
+                                                       TextColor="#6c757d"/>
+                                            </HorizontalStackLayout>
+
+                                            <!-- Subtotal -->
+                                            <Border Grid.Row="2"
+                                                    BackgroundColor="#e9ecef"
+                                                    Padding="8,4"
+                                                    StrokeShape="RoundRectangle 8"
+                                                    HorizontalOptions="End"
+                                                    Margin="0,5,0,0">
+                                                <Label Text="{Binding Subtotal_Display}"
+                                                       FontSize="16"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#28a745"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <!-- Botón Volver -->
+                        <Button Text="Volver"
+                                BackgroundColor="#6c757d"
+                                TextColor="White"
+                                CornerRadius="10"
+                                Clicked="Volver_Clicked"
+                                Margin="0,10,0,0"/>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+    </components:Background_Image>
+</ContentPage>

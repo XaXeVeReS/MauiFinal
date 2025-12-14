@@ -1,0 +1,139 @@
+#############################################
+# -------- .NET MAUI / Visual Studio -------
+#############################################
+
+# Carpetas de compilación
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+
+# Servicios conectados
+Connected Services/
+
+#############################################
+# -------- Archivos de usuario VS ----------
+#############################################
+
+# Configuración local de Visual Studio
+.vs/
+
+# Archivos de usuario
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Backups de VS
+*.bak
+
+#############################################
+# -------- Archivos temporales -------------
+#############################################
+
+*.tmp
+*.temp
+*.log
+*.dmp
+
+#############################################
+# -------- Bases de datos locales ----------
+#############################################
+
+*.db
+*.sqlite
+*.sqlite3
+*.v9.bin
+
+#############################################
+# -------- Archivos MAUI -------------------
+#############################################
+
+# Imágenes autogeneradas por herramientas de diseño
+*_chart.png
+design/*.png
+
+# Resources generados
+Resources/Raw/*
+Platforms/Android/Resources/*
+Platforms/iOS/Resources/*
+
+#############################################
+# -------- NuGet ----------------------------
+#############################################
+
+project.lock.json
+project.fragment.lock.json
+
+packages/
+*.nupkg
+*.snupkg
+*.nuspec
+
+#############################################
+# -------- Builds de plataformas -----------
+#############################################
+
+# Android
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# Windows
+AppPackages/
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+
+# iOS
+*.app
+*.ipa
+*.dSYM/
+*.xcarchive
+
+#############################################
+# -------- Cache / artefactos --------------
+#############################################
+
+*.cache
+*/cache/
+*.pdb  # Archivos de símbolos de depuración
+
+#############################################
+# -------- Certificados --------------------
+#############################################
+
+*.pfx   # Certificados de firma
+
+#############################################
+# -------- IDE: JetBrains / VS Code --------
+#############################################
+
+# Rider / JetBrains
+.idea/
+*.iml
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+#############################################
+# -------- Archivos SO ---------------------
+#############################################
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS / Linux
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+

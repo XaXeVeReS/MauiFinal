@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="APP_MAUI_Apl_Dis_2025_II.Views.Components.Input_Date"
+    HeightRequest="55"
+    HorizontalOptions="Fill"
+    VerticalOptions="Center">
+
+    <Border
+        x:Name="border"
+        StrokeThickness="1"
+        Stroke="#FF6F00"
+        StrokeShape="RoundRectangle 15"
+        BackgroundColor="White"
+        Padding="8,8,8,0">
+
+        <Grid ColumnDefinitions="*,40">
+
+            <!-- LABEL FLOTANTE -->
+            <Label
+                x:Name="floatingLabel"
+                Text="{Binding Placeholder}"
+                FontSize="14"
+                TranslationY="12"
+                Margin="6"
+                TextColor="#FF6F00"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"/>
+
+            <!-- DATEPICKER ÚNICO (control visual y selector) -->
+            <DatePicker
+                x:Name="hiddenDatePicker"
+                Grid.Column="0"
+                TextColor="Black"
+                FontSize="16"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                Date="{Binding SelectedDate, Mode=TwoWay}"
+                DateSelected="OnDateSelected"/>
+
+            <!-- ÍCONO -->
+            <ImageButton
+                Grid.Column="1"
+                Source="calendario.png"
+                BackgroundColor="Transparent"
+                WidthRequest="22"
+                HeightRequest="22"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="OnIconClicked"/>
+
+        </Grid>
+    </Border>
+</Grid>
+
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Pedidos.Page_Form_Pago"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components">
+    <components:Background_Image>
+        <VerticalStackLayout Spacing="15" Padding="10">
+            <components:Encabezado/>
+            <Border BackgroundColor="#D9D9D9"
+                Padding="15"
+                StrokeShape="RoundRectangle 15"
+                Stroke="#000000"
+                StrokeThickness="1">
+
+                <VerticalStackLayout Spacing="15" Padding="10">
+                    <Label 
+                        x:Name="lblError" 
+                        Text="" 
+                        FontSize="14" 
+                        HorizontalOptions="Center" 
+                        IsVisible="False" />
+                    
+                    <Border
+                        Background="White"
+                        StrokeShape="RoundRectangle 15"
+                        HeightRequest="80"
+                        HorizontalOptions="Fill">
+
+                        <HorizontalStackLayout 
+                            Padding="6"
+                            VerticalOptions="Center">
+                            <Picker
+                                x:Name="picker_Tipo"
+                                Title="Seleccionar Tarjeta"
+                                FontSize="16"
+                                TextColor="Black"
+                                HorizontalOptions="Fill">
+                                <Picker.Items>
+                                    <x:String>BCP</x:String>
+                                    <x:String>BN</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </HorizontalStackLayout>
+                    </Border>
+                
+                    <components:Input_Text
+                        x:Name="documento"
+                        Placeholder="Nr Docuento"/>
+
+                    <components:Input_Text
+                        x:Name="Monto"
+                        Placeholder="Monto Total"
+                        IsEnabled="False"/>
+
+                    <components:Input_Float
+                        x:Name="Pago"
+                        Placeholder="Pago Realizado"/>
+
+                    <components:Input_Text
+                        x:Name="Clave_Pin"
+                        Placeholder="Clave Pin"/>
+
+                    <Button 
+                        x:Name="btn_realizarPago"
+                        Text="Realizar Pago"
+                        TextColor="Black"
+                        HorizontalOptions="Fill"
+                        BackgroundColor="AliceBlue"
+                        CornerRadius="10"
+                        Clicked="btn_Realizar_Pago"/>
+
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </components:Background_Image>
+</ContentPage>

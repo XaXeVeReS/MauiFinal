@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Promociones.Page_CrearPromociones"
+             Title="Page_CrearPromociones">
+
+    <Grid>
+
+        <!-- FONDO -->
+        <components:Background_Image
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            ZIndex="0" />
+
+        <!-- CONTENIDO -->
+        <Grid ZIndex="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Encabezado -->
+                <RowDefinition Height="*"/>
+                <!-- Formulario -->
+            </Grid.RowDefinitions>
+
+            <!-- ENCABEZADO (para menú y alertas) -->
+            <components:Encabezado Grid.Row="0"/>
+
+            <!-- FORMULARIO -->
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Spacing="18" Padding="16">
+
+                    <!-- TÍTULO -->
+                    <Label Text="Crear Promoción"
+                           FontSize="34"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="Black"/>
+
+                    <!-- CUADRO PRINCIPAL -->
+                    <Frame Padding="15"
+                           CornerRadius="15"
+                           BackgroundColor="#D9D9D9"
+                           HasShadow="True">
+
+                        <VerticalStackLayout Spacing="15">
+
+                            <!-- PLATO -->
+                            <Label Text="Plato"
+                                   FontAttributes="Bold"
+                                   FontSize="16"/>
+
+                            <Border Stroke="Black"
+                                    StrokeThickness="2"
+                                    BackgroundColor="White"
+                                    StrokeShape="RoundRectangle 10">
+                                <Picker x:Name="pickerPlatos"
+                                        Title="Seleccione un plato"
+                                        FontSize="15"
+                                        BackgroundColor="Transparent"/>
+                            </Border>
+
+                            <!-- NOMBRE PROMOCIÓN -->
+                            <Label Text="Nombre"
+                                   FontAttributes="Bold"
+                                   FontSize="16"/>
+
+                            <Border Stroke="Black"
+                                    StrokeThickness="2"
+                                    BackgroundColor="White"
+                                    StrokeShape="RoundRectangle 10">
+                                <Entry x:Name="txtNombre"
+                                       FontSize="15"
+                                       BackgroundColor="Transparent"/>
+                            </Border>
+
+                            <!-- CANTIDAD Y DESCUENTO -->
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+
+                                <!-- CANTIDAD -->
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="Cantidad Aplicable"
+                                           FontAttributes="Bold"
+                                           FontSize="16"/>
+
+                                    <Border Stroke="Black"
+                                            StrokeThickness="2"
+                                            BackgroundColor="White"
+                                            StrokeShape="RoundRectangle 10">
+                                        <Entry x:Name="txtCantidad"
+                                               Keyboard="Numeric"
+                                               FontSize="15"
+                                               BackgroundColor="Transparent"/>
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <!-- DESCUENTO -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                    <Label Text="Descuento (%)"
+                                           FontAttributes="Bold"
+                                           FontSize="16"/>
+
+                                    <Border Stroke="Black"
+                                            StrokeThickness="2"
+                                            BackgroundColor="White"
+                                            StrokeShape="RoundRectangle 10">
+                                        <Entry x:Name="txtDescuento"
+                                               Placeholder="0.10"
+                                               Keyboard="Numeric"
+                                               FontSize="15"
+                                               BackgroundColor="Transparent"/>
+                                    </Border>
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                            <!-- FECHAS: INICIO Y FIN -->
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+
+                                <!-- INICIO -->
+                                <VerticalStackLayout Spacing="4">
+
+                                    <Label Text="Inicio"
+                                           FontAttributes="Bold"
+                                           FontSize="16"/>
+
+                                    <Border Stroke="Black"
+                                            StrokeThickness="2"
+                                            BackgroundColor="White"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="0">
+
+                                        <DatePicker x:Name="pickerInicioFecha"
+                                                    BackgroundColor="Transparent"
+                                                    FontSize="14"/>
+                                    </Border>
+
+                                    <Border Stroke="Black"
+                                            StrokeThickness="2"
+                                            BackgroundColor="White"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="0">
+
+                                        <TimePicker x:Name="pickerInicioHora"
+                                                    BackgroundColor="Transparent"
+                                                    HeightRequest="35"
+                                                    FontSize="14"
+                                                    Margin="3,0"/>
+                                    </Border>
+
+                                </VerticalStackLayout>
+
+                                <!-- FIN -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="4">
+
+                                    <Label Text="Fin"
+                                           FontAttributes="Bold"
+                                           FontSize="16"/>
+
+                                    <Border Stroke="Black"
+                                            StrokeThickness="2"
+                                            BackgroundColor="White"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="0">
+
+                                        <DatePicker x:Name="pickerFinFecha"
+                                                    BackgroundColor="Transparent"
+                                                    FontSize="14"/>
+                                    </Border>
+
+                                    <Border Stroke="Black"
+                                            StrokeThickness="2"
+                                            BackgroundColor="White"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="0">
+
+                                        <TimePicker x:Name="pickerFinHora"
+                                                    BackgroundColor="Transparent"
+                                                    HeightRequest="35"
+                                                    FontSize="14"
+                                                    Margin="3,0"/>
+                                    </Border>
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                            <!-- BOTONES -->
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+
+                                <Button Text="CANCELAR"
+                                        BackgroundColor="#FFA500"
+                                        TextColor="Black"
+                                        CornerRadius="10"
+                                        HeightRequest="45"
+                                        Clicked="btnCancelar_Clicked"/>
+
+                                <Button x:Name="btnAgregar"
+                                        Grid.Column="1"
+                                        Text="AGREGAR"
+                                        BackgroundColor="#3CB371"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        HeightRequest="45"
+                                        Clicked="btnAgregar_Clicked"/>
+                                <Button x:Name="btnEditar"
+                                        Grid.Column="1"
+                                        Text="EDITAR"
+                                        BackgroundColor="#1E90FF"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        IsVisible="False"
+                                        HeightRequest="45"
+                                        Clicked="btnEditar_Clicked"/>
+
+                            </Grid>
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

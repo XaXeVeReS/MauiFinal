@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="APP_MAUI_Apl_Dis_2025_II.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:login="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Login"
+    xmlns:pedidos="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Pedidos"
+    xmlns:insumos="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Insumos"
+    xmlns:promocion="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Promociones"
+    xmlns:usuario="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Usuario"
+    xmlns:plato="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Platos"
+    xmlns:venta="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Ventas"
+    xmlns:Metricas="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Metricas"
+    xmlns:Alertas="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Alertas"
+    xmlns:compras="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Compras"
+    xmlns:comentarios="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.View_Comentarios"
+    Shell.NavBarIsVisible="False"
+    FlyoutBackgroundColor="#C8C8C8"
+    FlyoutWidth="240">
+
+   
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="Auto,*" Padding="6">
+
+                <Image Source="{Binding FlyoutIcon}"
+                       WidthRequest="32"
+                       HeightRequest="32"
+                       Margin="0,0,8,0"/>
+
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontSize="16"
+                       VerticalTextAlignment="Center"
+                       TextColor="Black"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+
+   
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="#6E6E6E" Padding="10">
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+
+                <ImageButton Source="sol_naranja.png"
+                         HeightRequest="55"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Center"
+                         Clicked="CerrarFlyout"/>
+
+                <Label Text="Food Simp!"
+                       FontSize="18"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"/>
+
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+
+    <!-- ========================= -->
+    <!--      LOGIN (OCULTO)       -->
+    <!-- ========================= -->
+    <ShellContent
+        Route="Login"
+        FlyoutItemIsVisible="False"
+        ContentTemplate="{DataTemplate login:Page_Login}" />
+
+
+    <!-- ========================= -->
+    <!--      MENU PRINCIPAL       -->
+    <!-- ========================= -->
+
+    <FlyoutItem Title="Pedidos" FlyoutIcon="ic_pedidos.png">
+        <ShellContent Route="pedidos_page" ContentTemplate="{DataTemplate pedidos:Page_Pedidos}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Platos" FlyoutIcon="ic_platos.png">
+        <ShellContent Route="platos_page" ContentTemplate="{DataTemplate plato:Page_Platos}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Promociones" FlyoutIcon="ic_promos.png">
+        <ShellContent Route="promos_page" ContentTemplate="{DataTemplate promocion:Page_Promociones}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Insumos" FlyoutIcon="ic_insumos.png">
+        <ShellContent Route="insumos_page" ContentTemplate="{DataTemplate insumos:Page_Insumos}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Compras" FlyoutIcon="ic_compras.png">
+        <ShellContent Route="compras_page" ContentTemplate="{DataTemplate compras:Page_Compras}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Ventas" FlyoutIcon="ic_ventas.png">
+        <ShellContent ContentTemplate="{DataTemplate venta:Page_Ventas}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Ajuste de stock" FlyoutIcon="ic_stock.png">
+        <ShellContent ContentTemplate="{DataTemplate insumos:Page_Form_Stock}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Métricas" FlyoutIcon="ic_metricas.png">
+        <ShellContent Route="metricas_page" ContentTemplate="{DataTemplate Metricas:Page_Metricas}" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Usuarios" FlyoutIcon="ic_usuarios.png">
+    <ShellContent Route="usuarios_page" ContentTemplate="{DataTemplate usuario:Page_Usuarios}" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Comentarios" FlyoutIcon="ic_comentarios.png">
+        <ShellContent Route="comentarios_page" ContentTemplate="{DataTemplate comentarios:Page_Comentarios}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Alertas" FlyoutIcon="campana.png">
+        <ShellContent Route="alertas_page" ContentTemplate="{DataTemplate Alertas:Page_Alertas}" />
+    </FlyoutItem>
+
+   
+
+
+</Shell>

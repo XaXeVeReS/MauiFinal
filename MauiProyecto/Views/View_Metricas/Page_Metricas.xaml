@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+    xmlns:charts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+    x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Metricas.Page_Metricas"
+    Title="Dashboard">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <components:Background_Image 
+            Grid.RowSpan="2"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill" />
+
+        <components:Encabezado Grid.Row="0"/>
+
+        <Grid Grid.Row="1">
+
+            <ScrollView>
+                <VerticalStackLayout Spacing="20" Padding="20,10,20,30">
+
+                    <Label Text="Métricas y Resultados"
+                           HorizontalOptions="Center"
+                           FontAttributes="Bold"
+                           FontSize="26"
+                           TextColor="Black"/>
+
+                    <Border Stroke="#CCCCCC"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 15"
+                            BackgroundColor="#F4F6F6"
+                            Padding="15">
+
+                        <VerticalStackLayout Spacing="15">
+                            <Label Text="Filtrar por rango de fechas:" TextColor="Gray" FontSize="12"/>
+
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                                <VerticalStackLayout>
+                                    <Label Text="Desde" FontAttributes="Bold" TextColor="#34495E"/>
+                                    <Border Stroke="Transparent" BackgroundColor="White" StrokeShape="RoundRectangle 8" Padding="5,0">
+                                        <DatePicker x:Name="dpInicio" TextColor="Black"/>
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="1">
+                                    <Label Text="Hasta" FontAttributes="Bold" TextColor="#34495E"/>
+                                    <Border Stroke="Transparent" BackgroundColor="White" StrokeShape="RoundRectangle 8" Padding="5,0">
+                                        <DatePicker x:Name="dpFin" TextColor="Black"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <Button x:Name="btnGenerar"
+                                    Text="Actualizar Dashboard"
+                                    BackgroundColor="#2E86C1"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    CornerRadius="10"
+                                    HeightRequest="50"
+                                    Clicked="BtnGenerar_Clicked"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="15" RowSpacing="15">
+
+                        <Border StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="15">
+                            <VerticalStackLayout>
+                                <Label Text="Ventas Promedio" TextColor="Gray" FontSize="12"/>
+                                <Label x:Name="lblTicketPromedio" Text="..." FontAttributes="Bold" FontSize="20" TextColor="#27AE60"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Column="1" StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="15">
+                            <VerticalStackLayout>
+                                <Label Text="Valor Inventario" TextColor="Gray" FontSize="12"/>
+                                <Label x:Name="lblInventario" Text="..." FontAttributes="Bold" FontSize="20" TextColor="#D35400"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="0" StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="15">
+                            <VerticalStackLayout>
+                                <Label Text="Plato Estrella" TextColor="Gray" FontSize="12"/>
+                                <Label x:Name="lblPlatoTop" Text="..." FontAttributes="Bold" FontSize="16" LineBreakMode="TailTruncation"/>
+                                <Label x:Name="lblPlatoTopCant" Text="" FontSize="11" TextColor="#2E86C1"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="1" StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="15">
+                            <VerticalStackLayout>
+                                <Label Text="Mayor Consumo" TextColor="Gray" FontSize="12"/>
+                                <Label x:Name="lblInsumoTop" Text="..." FontAttributes="Bold" FontSize="16" LineBreakMode="TailTruncation"/>
+                                <Label x:Name="lblInsumoTopCant" Text="" FontSize="11" TextColor="#8E44AD"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+
+
+                    <Border StrokeShape="RoundRectangle 15" BackgroundColor="#FDEDEC" Stroke="#E74C3C" StrokeThickness="1" Padding="15">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="⚠️ Insumos Críticos (Stock Bajo)" FontAttributes="Bold" TextColor="#C0392B"/>
+                            <Label x:Name="lblInsumosCriticos" Text="Cargando..." TextColor="#641E16" FontSize="13"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+
+                    <Border StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="15">
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Tendencia de Ventas (Diaria)" FontAttributes="Bold" TextColor="#2C3E50"/>
+                            <charts:ChartView x:Name="chartVentasPorDia" HeightRequest="200"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+
+                    <Border StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="15">
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Ranking de Platos" FontAttributes="Bold" TextColor="#2C3E50"/>
+                            <charts:ChartView x:Name="chartPlatosTop" HeightRequest="250"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                        <Border StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="15">
+                            <VerticalStackLayout>
+                                <Label Text="Mejores Clientes" FontAttributes="Bold" FontSize="13"/>
+                                <Label x:Name="lblClientesFrecuentes" Text="..." FontSize="12" Margin="0,5,0,0"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Column="1" StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="15">
+                            <VerticalStackLayout>
+                                <Label Text="Menos Rotación" FontAttributes="Bold" FontSize="13"/>
+                                <Label x:Name="lblPlatosMenos" Text="..." FontSize="12" Margin="0,5,0,0" TextColor="#7F8C8D"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <Border StrokeShape="RoundRectangle 15" BackgroundColor="White" Padding="15">
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Consumo de Insumos" FontAttributes="Bold" TextColor="#2C3E50"/>
+                            <charts:ChartView x:Name="chartInsumos" HeightRequest="200"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <Grid x:Name="loadingOverlay"
+                  BackgroundColor="#80000000"
+                  IsVisible="False"
+                  HorizontalOptions="Fill"
+                  VerticalOptions="Fill">
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="15">
+                    <ActivityIndicator IsRunning="True" Color="White" HeightRequest="50" WidthRequest="50"/>
+                    <Label Text="Procesando métricas..." TextColor="White" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Platos.Page_CrearPlato">
+
+    <Grid>
+
+        <!-- FONDO -->
+        <components:Background_Image 
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            ZIndex="0"/>
+
+        <!-- CONTENIDO -->
+        <Grid ZIndex="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Encabezado -->
+                <RowDefinition Height="*"/>
+                <!-- Contenido -->
+            </Grid.RowDefinitions>
+
+            <!-- ENCABEZADO -->
+            <components:Encabezado Grid.Row="0"/>
+
+            <!-- FORMULARIO -->
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Spacing="18" Padding="16">
+
+                    <!-- TÍTULO -->
+                    <Label Text="Crear Plato"
+                           FontSize="38"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="Black"/>
+
+                    <!-- CUADRO PRINCIPAL -->
+                    <Frame BackgroundColor="#D9D9D9"
+                           Padding="15"
+                           CornerRadius="15"
+                           HasShadow="True">
+
+                        <VerticalStackLayout Spacing="12">
+
+                            <!-- NOMBRE -->
+                            <Label Text="Nombre:" FontAttributes="Bold"/>
+                            <Border Stroke="#000" StrokeThickness="1" BackgroundColor="White" StrokeShape="RoundRectangle 10">
+                                <Entry x:Name="txtNombre"
+                                       Placeholder="Nombre del plato"
+                                       BackgroundColor="Transparent"/>
+                            </Border>
+
+                            <!-- PRECIO / TIEMPO + IMAGEN -->
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+
+                                <!-- PRECIO Y TIEMPO -->
+                                <VerticalStackLayout Grid.Column="0" Spacing="10">
+
+                                    <Label Text="Precio:" FontAttributes="Bold"/>
+                                    <Border Stroke="#000" StrokeThickness="1" BackgroundColor="White" StrokeShape="RoundRectangle 10">
+                                        <Entry x:Name="txtPrecio"
+                                               Placeholder="Precio"
+                                               Keyboard="Numeric"
+                                               BackgroundColor="Transparent"/>
+                                    </Border>
+
+                                    <Label Text="Tiempo:" FontAttributes="Bold"/>
+                                    <Border Stroke="#000" StrokeThickness="1" BackgroundColor="White" StrokeShape="RoundRectangle 10">
+                                        <Entry x:Name="txtTiempo"
+                                               Placeholder="Tiempo de preparación"
+                                               FontSize="12"
+                                               BackgroundColor="Transparent"/>
+                                    </Border>
+
+                                </VerticalStackLayout>
+
+                                <!-- IMAGEN -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="5">
+
+                                    <Label Text="Imagen:" FontAttributes="Bold"/>
+
+                                    <!-- Imagen de vista previa -->
+                                    <ImageButton x:Name="imgPreviewBtn"
+                                                 WidthRequest="110"
+                                                 HeightRequest="110"
+                                                 BackgroundColor="Transparent"
+                                                 Aspect="AspectFill"
+                                                 CornerRadius="15"
+                                                 IsVisible="False"
+                                                 Clicked="btnAgregarImagen_Clicked"/>
+
+                                    <!-- Botón agregar -->
+                                    <ImageButton x:Name="btnAgregarImagen"
+                                                 Source="agregar.png"
+                                                 WidthRequest="40"
+                                                 HeightRequest="40"
+                                                 BackgroundColor="Transparent"
+                                                 HorizontalOptions="Center"
+                                                 Clicked="btnAgregarImagen_Clicked"/>
+
+                                    <!-- URL -->
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Label Text="Url:" 
+                                               VerticalOptions="Center"
+                                               FontAttributes="Bold"/>
+
+                                        <Label x:Name="lblUrl"
+                                               Grid.Column="1"
+                                               TextColor="Gray"
+                                               FontSize="12"
+                                               VerticalOptions="Center"/>
+                                    </Grid>
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                            <!-- DESCRIPCIÓN -->
+                            <Label Text="Descripción:" FontAttributes="Bold"/>
+                            <Border Stroke="#000" StrokeThickness="1" BackgroundColor="White" StrokeShape="RoundRectangle 10">
+                                <Editor x:Name="txtDescripcion"
+                                        HeightRequest="90"
+                                        BackgroundColor="Transparent"
+                                        Placeholder="Descripción del plato"/>
+                            </Border>
+
+                            <!-- RECETA -->
+                            <Label Text="Receta" FontAttributes="Bold" FontSize="18"/>
+
+                            <!-- AGREGAR INSUMO -->
+                            <Grid ColumnDefinitions="2*,2*,Auto" ColumnSpacing="10">
+
+                                <Border Stroke="#000" StrokeThickness="1" BackgroundColor="White" StrokeShape="RoundRectangle 10">
+                                    <Picker x:Name="pickerInsumos"
+                                            Title="Insumo"
+                                            BackgroundColor="Transparent"/>
+                                </Border>
+
+                                <Border Grid.Column="1" Stroke="#000" StrokeThickness="1" BackgroundColor="White" StrokeShape="RoundRectangle 10">
+                                    <Entry x:Name="txtCantidad"
+                                           Placeholder="Cantidad"
+                                           Keyboard="Numeric"
+                                           BackgroundColor="Transparent"/>
+                                </Border>
+
+                                <ImageButton Grid.Column="2"
+                                             Source="agregar.png"
+                                             WidthRequest="40"
+                                             HeightRequest="40"
+                                             BackgroundColor="Transparent"
+                                             Clicked="btnAgregarInsumo_Clicked"/>
+                            </Grid>
+
+                            <!-- LISTA DE RECETA -->
+                            <Frame BackgroundColor="White"
+                                   CornerRadius="10"
+                                   Padding="5"
+                                   HeightRequest="160">
+
+                                <CollectionView x:Name="cvReceta">
+
+                                    <CollectionView.Header>
+                                        <Grid ColumnDefinitions="*,*,Auto" Padding="10">
+                                            <Label Text="Insumo" FontAttributes="Bold" FontSize="18" Grid.Column="0"/>
+                                            <Label Text="Cantidad" FontAttributes="Bold" FontSize="18" Grid.Column="1"/>
+                                            <Label Grid.Column="2"/>
+                                        </Grid>
+                                    </CollectionView.Header>
+
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid ColumnDefinitions="*,*,40" Padding="0" HeightRequest="35">
+
+                                                <Label Text="{Binding Insumo}" />
+
+                                                <Label Grid.Column="1"
+                                                       Text="{Binding Cantidad}" />
+
+                                                <ImageButton Grid.Column="2"
+                                                             Source="eliminar.png"
+                                                             WidthRequest="20"
+                                                             HeightRequest="20"
+                                                             BackgroundColor="Transparent"
+                                                             
+                                                             CommandParameter="{Binding .}"
+                                                             Clicked="btnQuitarInsumo_Clicked"/>    
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+
+                                </CollectionView>
+
+                            </Frame>
+
+                            <!-- BOTONES -->
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+
+                                <Button Text="CANCELAR"
+                                        BackgroundColor="#FFA500"
+                                        TextColor="Black"
+                                        CornerRadius="10"
+                                        HeightRequest="45"
+                                        Clicked="btnCancelar_Clicked"/>
+
+                                <Button x:Name="btnCrear"
+                                        Grid.Column="1"
+                                        Text="CREAR"
+                                        BackgroundColor="#3CB371"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        HeightRequest="45"
+                                        Clicked="btnCrear_Clicked"/>
+
+                                <Button x:Name="btnEditar"
+                                        Grid.Column="1"
+                                        Text="EDITAR"
+                                        BackgroundColor="#1E90FF"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        IsVisible="False"
+                                        HeightRequest="45"
+                                        Clicked="btnEditar_Clicked"/>
+
+                            </Grid>
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

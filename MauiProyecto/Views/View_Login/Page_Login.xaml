@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"            
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Login.Page_Login"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components">
+    
+    <components:Background_Image>
+        <Grid 
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            RowDefinitions="Auto" 
+            ColumnDefinitions="0.1*,0.8*,0.1*">
+
+            <Border 
+                Grid.Column="1" 
+                BackgroundColor="#D3D3D3" 
+                StrokeThickness="0" 
+                StrokeShape="RoundRectangle 20" 
+                HorizontalOptions="Fill" 
+                VerticalOptions="Center" 
+                Padding="20" 
+                MaximumWidthRequest="400">
+
+                <VerticalStackLayout 
+                    Spacing="15" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center">
+
+                    <Label 
+                        Text="Iniciar Sesión" 
+                        FontSize="Title" 
+                        FontAttributes="Bold" 
+                        TextColor="#ff6f00" 
+                        HorizontalOptions="Center" />
+
+                    <Image 
+                        Source="sol_naranja.png" 
+                        Aspect="AspectFit" 
+                        HorizontalOptions="Center" 
+                        WidthRequest="280" />
+
+                    <Label 
+                        x:Name="lblError" 
+                        Text="" 
+                        TextColor="Red" 
+                        FontSize="14" 
+                        HorizontalOptions="Center" 
+                        IsVisible="False" />
+
+                    <VerticalStackLayout
+                         Spacing="12">
+
+                        <components:Input_Text 
+                            x:Name="correo"
+                            Placeholder="Usuario" />
+
+                        <components:Input_Password
+                            x:Name="contrasena"
+                            Placeholder="Contrasena" />
+
+                        <components:ButtonSumit 
+                            Clicked="Login_User"
+                            Text="Iniciar Sesión" />
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </components:Background_Image>
+</ContentPage>

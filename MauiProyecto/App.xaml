@@ -1,0 +1,25 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:APP_MAUI_Apl_Dis_2025_II"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!-- Archivos existentes -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- 💥 Tu estilo global  -->
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundImageSource" Value="fondo_naranja.jpg" />
+                <Setter Property="Background" Value="#AAFFFFFF" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

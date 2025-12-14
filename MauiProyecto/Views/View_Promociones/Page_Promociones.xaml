@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:APP_MAUI_Apl_Dis_2025_II.Views.Components"
+             x:Class="APP_MAUI_Apl_Dis_2025_II.Views.View_Promociones.Page_Promociones"
+             Title="Page_Promociones">
+
+    <Grid>
+
+        <!-- FONDO NARANJA -->
+        <components:Background_Image 
+            ZIndex="0"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"/>
+
+        <!-- CONTENIDO -->
+        <Grid ZIndex="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Encabezado -->
+                <RowDefinition Height="*"/>
+                <!-- Lista -->
+            </Grid.RowDefinitions>
+
+            <!-- ENCABEZADO (LOGO + TÍTULO + ALERTAS) -->
+            <components:Encabezado Grid.Row="0"/>
+
+            <!-- SECCIÓN PRINCIPAL -->
+            <Grid Grid.Row="1" Padding="20">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- TITULO -->
+                <Label Grid.Row="0" Grid.Column="0"
+                       Text="Promociones"
+                       FontSize="35"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"/>
+
+                <!-- BOTON AGREGAR -->
+                <ImageButton Grid.Row="0" Grid.Column="1"
+                             Source="agregar.png"
+                             WidthRequest="55"
+                             HeightRequest="55"
+                             BackgroundColor="Transparent"
+                             HorizontalOptions="Start"
+                             VerticalOptions="Center"
+                             Clicked="btnAgregarPromocion"/>
+
+                <!-- LISTA -->
+                <CollectionView x:Name="cvPromociones"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Margin="0,20,0,0">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid HeightRequest="50"
+                                  Padding="0"
+                                  ColumnSpacing="10"
+                                  VerticalOptions="Center">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- NOMBRE PROMOCIÓN -->
+                                <Frame Grid.Column="0"
+                                       BackgroundColor="#CCCCCC"
+                                       CornerRadius="6"
+                                       Padding="5"
+                                       HeightRequest="45"
+                                       VerticalOptions="Center">
+                                    <Label Text="{Binding Nombre}"
+                                           FontSize="16"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"/>
+                                </Frame>
+
+                                <!-- EDITAR -->
+                                <ImageButton Grid.Column="1"
+                                             Source="editar.png"
+                                             BackgroundColor="Transparent"
+                                             VerticalOptions="Center"
+                                             Clicked="btnEditar_Clicked"/>
+
+                                <!-- ELIMINAR -->
+                                <ImageButton Grid.Column="2"
+                                             Margin="3"
+                                             Source="quitar.png"
+                                             BackgroundColor="Transparent"
+                                             VerticalOptions="Center"
+                                             Clicked="btnEliminar_Clicked"/>
+
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
