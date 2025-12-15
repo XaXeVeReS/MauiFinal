@@ -26,13 +26,31 @@ namespace APP_MAUI_Apl_Dis_2025_II.Core
         /// </summary>
         public void EstablecerAlertas(List<Cls_Alerta> nuevasAlertas)
         {
-            // 2. FILTRADO: Solo aceptamos alertas que NO estén en la lista de ignoradas
-            // NOTA: Si tu Cls_Alerta tiene un 'Id', usa 'x.Id'. Si no, usa 'x.Mensaje'.
+            // 1. Filtrar las ignoradas (igual que antes)
             var alertasFiltradas = nuevasAlertas
                 .Where(x => !_alertasIgnoradas.Contains(x.Mensaje))
                 .ToList();
 
-            // Actualizamos la colección observable
+            // --- NUEVA LÓGICA DE OPTIMIZACIÓN ---
+
+            // 2. Verificar si la lista nueva es IDÉNTICA a la que ya tenemos mostrada.
+            // Comparamos cantidad y contenido (Mensaje y Detalle)
+            bool sonIdenticas = Alertas.Count == alertasFiltradas.Count &&
+                                !Alertas.Where((alertaActual, index) =>
+                                {
+                                    var alertaNueva = alertasFiltradas[index];
+                                    return alertaActual.Mensaje != alertaNueva.Mensaje ||
+                                           alertaActual.Detalle != alertaNueva.Detalle;
+                                }).Any();
+
+            // 3. SI SON IGUALES, NO HACEMOS NADA (Salimos del método)
+            if (sonIdenticas)
+            {
+                return;
+            }
+            // ------------------------------------
+
+            // 4. Solo si hay cambios, actualizamos la UI
             Alertas.Clear();
             foreach (var alerta in alertasFiltradas)
             {
@@ -49,17 +67,21 @@ namespace APP_MAUI_Apl_Dis_2025_II.Core
         {
             if (alerta == null) return;
 
-            // 3. AGREGAR A LISTA NEGRA: Guardamos el identificador
+            // 1. Agregar a lista negra (Ya lo tienes)
             if (!_alertasIgnoradas.Contains(alerta.Mensaje))
             {
                 _alertasIgnoradas.Add(alerta.Mensaje);
             }
 
-            // 4. REMOVER DE LA UI: La quitamos visualmente
+            // 2. Remover de la UI (Ya lo tienes)
             if (Alertas.Contains(alerta))
             {
                 Alertas.Remove(alerta);
             }
+
+            // 3. ¡NUEVO! Notificar a todos (incluida la campanita) que la lista cambió
+            // Esto hará que el Encabezado revise si quedan alertas (count > 0)
+            OnAlertasActualizadas?.Invoke(Alertas.ToList());
         }
 
         public bool TieneAlertas => Alertas.Count > 0;

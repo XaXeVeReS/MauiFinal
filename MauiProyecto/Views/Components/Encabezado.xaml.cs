@@ -21,7 +21,7 @@ namespace APP_MAUI_Apl_Dis_2025_II.Views.Components
         {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                if (alertas.Count > 0)
+                if (alertas != null && alertas.Count > 0)
                 {
                     // Cambiar imagen
                     btnCampana.Source = "campana_roja.png";
